@@ -1,0 +1,72 @@
+
+
+
+<div id="age-standardised-rates" class="section level1">
+<h1>Age Standardised Rates</h1>
+<div id="data-sources" class="section level3">
+<h3>Data Sources</h3>
+<p>All data was sourced from the Australian Bureau of Statistics (ABS)
+<a href="https://www.abs.gov.au/census">Census of Population of
+Housing</a> <a href="https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/data-api-user-guide">Application
+Programming Interface (API)</a>. Specifically, <a href="https://www.abs.gov.au/articles/long-term-health-conditions">long
+term health conditions</a> were available only for 2021, while <a href="https://www.abs.gov.au/census/guide-census-data/census-dictionary/2021/variables-topic/disability-and-carers/core-activity-need-assistance-assnp">core
+activity need for assistance</a> was available for the full data
+series.</p>
+<p>2021 <a href="https://www.abs.gov.au/statistics/statistical-geography/australian-statistical-geography-standard-asgs">Australian
+Statistical Geography Standard (ASGS)</a> areas were used for all
+boundaries, visualised at the <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/main-structure-and-greater-capital-city-statistical-areas">Statisical
+Area 2 (SA2)</a> level. That is, while historical data is visualised for
+2011 and 2016, these have been populated according to the updated 2021
+ASGS boundaries in the time series tables.</p>
+</div>
+<div id="included-variables" class="section level3">
+<h3>Included variables</h3>
+<p>The variables chosen for estimation were informed from the Census. In
+the case of core activity assistance, this was chosen due to being one
+of the only questions on long term health conditions that has been asked
+consistently and is thus available as a time series. All other long term
+health conditions were included in the 2021 Census for the first time,
+and all variables were thus included.</p>
+</div>
+<div id="method" class="section level3">
+<h3>Method</h3>
+<p>Variables were age standardised using the June 2001 <a href="https://www.abs.gov.au/ausstats/abs@.nsf/Lookup/3101.0Feature+Article1Mar%202013">standard
+Australian population</a>, as recommended by the ABS and the Australian
+Institute of Health and Welfare (AIHW). The Census API categorises age
+slightly differently for long term health conditions and core activity
+need for assistance, with long term health conditions categorising age
+into nine groups (0-14, 15-24, and then ten year age groups up to 85+),
+while core activity need for assistance categorises age into eleven
+groups (0-4, 5-14, 15-19, 20-24, and then ten year age groups up to
+85+). Age groupings were used as supplied by the API, with the standard
+population aggregated accordingly.</p>
+<p>Usual resident populations were used to standardise the estimates in
+order to match the numerator. That is, census counts were used without
+additional correction for undercounting (e.g. <a href="https://www.abs.gov.au/statistics/detailed-methodology-information/information-papers/methodology-used-final-rebased-population-estimates-june-2021">Estimated
+Resident Populations</a>), as there are no equivalent corrected
+estimates for the conditions enumerated.</p>
+<p>Direct age standardisation was used, with confidence intervals
+calculated using the epitools package in R, which employs a method based
+on the gamma distribution as described by <a href="https://pubmed.ncbi.nlm.nih.gov/9131766/">Fay and Feuer
+(1997)</a>.</p>
+<p>Note that only SA2s for with sufficient population for valid
+estimation were included. This meant excluding the bottom 5% of SA2s by
+total population for each year, which included mostly non-residential
+SA2s, such as ‘Sydney Airport’ or ‘Rookwood Cemetery’.</p>
+</div>
+<div id="limitations" class="section level3">
+<h3>Limitations</h3>
+<p>All data reported in the census are self-reported, with no validation
+or cross reference to registry and/or administrative data. The validity
+of self-reported estimates of long-term health conditions has been shown
+to be questionable, and variable according to condition (e.g. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2447848/">Smith et
+al, 2008</a>), and this should be taken into account when interpreting
+these estimates. Further validation is required before these estimates
+can be taken at face value.</p>
+<p>In addition, inconsistent age grouping may lead to some bias in the
+estimates, for example if a condition is especially prevalent in an age
+group that has been aggregated. The AIHW <a href="https://meteor.aihw.gov.au/content/327276">recommend</a> generally
+using five-year age groups, however these were unavailable in the
+current dataset.</p>
+</div>
+</div>

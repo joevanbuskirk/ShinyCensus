@@ -1,0 +1,88 @@
+
+
+
+<div id="socioeconomic-indexes-for-areas-seifa" class="section level1">
+<h1>Socioeconomic Indexes For Areas (SEIFA)</h1>
+<div id="data-sources" class="section level3">
+<h3>Data Sources</h3>
+<p>All data was sourced from the Australian Bureau of Statistics (ABS)
+<a href="https://www.abs.gov.au/census">Census of Population of
+Housing</a> <a href="https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/data-api-user-guide">Application
+Programming Interface (API)</a>. Specifically, <a href="https://www.abs.gov.au/statistics/people/people-and-communities/socio-economic-indexes-areas-seifa-australia/latest-release">Socioeconomic
+Indexes for Areas (SEIFA)</a> were available for 2011, 2016 and
+2021.</p>
+<p>As with other variables, 2021 <a href="https://www.abs.gov.au/statistics/statistical-geography/australian-statistical-geography-standard-asgs">Australian
+Statistical Geography Standard (ASGS)</a> areas were used for all
+boundaries, visualised at the <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/main-structure-and-greater-capital-city-statistical-areas">Statisical
+Area 2 (SA2)</a> level. However, SEIFA data was only available at the
+SA2 level for each census year, and so indexes were aggregated manually
+from the SA1 level to agree with 2021 SA2 boundaries. This process is
+described in more detail below under Methods.</p>
+</div>
+<div id="included-variables" class="section level3">
+<h3>Included variables</h3>
+<p>The SEIFA variables chosen for estimation were all indexes enumerated
+by the ABS. Previous reporting at the Sydney Local Health District has
+focused on the Index of Relative Socioeconomic Disadvantage (IRSD), but
+each indexes has specific strengths and limitations, and are intended
+for different purposes. Broadly, the four indexes are:</p>
+<ul>
+<li>Index of Relative Socio-economic Advantage and Disadvantage (IRSAD)
+<ul>
+<li>Provides a general measure of advantage and disadvantage</li>
+</ul></li>
+<li>Index of Relative Socio-economic Disadvantage (IRSD)
+<ul>
+<li>Provides a measure of an area’s relative disadvantage and
+<em>lack</em> of disadvantage</li>
+</ul></li>
+<li>Index of Education and Occupation (IEO)
+<ul>
+<li>Provides a measure of an area’s education and occupation variables,
+and to understand the relationship between income, education, and
+employment within an area</li>
+</ul></li>
+<li>Index of Economic Resources (IER) focuses on Economic advantage and
+disadvantage.
+<ul>
+<li>Provides a measure of an area’s access to economic resources
+(e.g. understanding housing as well as income).</li>
+</ul></li>
+</ul>
+<p>More detail is provided <a href="https://www.abs.gov.au/statistics/people/people-and-communities/socio-economic-indexes-areas-seifa-australia/latest-release">here</a>.</p>
+</div>
+<div id="method" class="section level3">
+<h3>Method</h3>
+<p>Raw SEIFA variable scores were sourced at the SA1 level for their
+respective Census (e.g. 2011 SEIFA scores for 2011 SA1 boundaries),
+along with Usual Resident Populations (URPs) for these areas. SA1
+boundaries for 2011 and 2016 were intersected with 2021 SA2 boundaries,
+with a threshold of 50% taken for inclusion. That is, if an SA1 was at
+least 50% within the corresponding 2021 SA2, it was assigned to that
+area. In almost all cases this resulted in a one-to-one match. Scores
+were then population weighted using URPs to obtain an overall score for
+the 2021 SA2, with population weighted scores ranked and categorised
+into deciles.</p>
+<p>This method was adapted from the <a href="https://www.abs.gov.au/methodologies/socio-economic-indexes-areas-seifa-australia-methodology/2021">standard
+approach</a> used by the ABS for assigning indexes within each census
+year.</p>
+<p>Note that only SA2s for with sufficient population for valid
+estimation were included. This meant excluding the bottom 5% of SA2s by
+total population for each year, which included mostly non-residential
+SA2s, such as ‘Sydney Airport’ or ‘Rookwood Cemetery’.</p>
+</div>
+<div id="limitations" class="section level3">
+<h3>Limitations</h3>
+<p>SEIFA indexes are <a href="https://www.abs.gov.au/methodologies/socio-economic-indexes-areas-seifa-australia-methodology/2021">calculated
+differently each year</a>, and are not intended to be used for time
+series analyses. Nonetheless, methods for most indexes have changed only
+slightly between 2016 and 2021, and so superficial comparisons may be
+made, albeit cautiously.</p>
+<p>Socioeconomic status is a highly complex issue and no one index, nor
+combination of indexes, is intended to capture the full spectrum of
+socioeconomic advantage and disadvantage. Indexes are designed to be
+indicative only, with full acknowledgement that important factors
+influencing socioeconomic status may not be adequately captured by any
+of these indexes.</p>
+</div>
+</div>

@@ -1,0 +1,93 @@
+
+
+
+<div id="numbers-and-percentages" class="section level1">
+<h1>Numbers and Percentages</h1>
+<div id="data-sources" class="section level3">
+<h3>Data Sources</h3>
+<p>All data was sourced from the Australian Bureau of Statistics (ABS)
+<a href="https://www.abs.gov.au/census">Census of Population of
+Housing</a> <a href="https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/data-api-user-guide">Application
+Programming Interface (API)</a>. Specifically, <a href="https://www.abs.gov.au/articles/long-term-health-conditions">long
+term health conditions</a> were available only for 2021, while <a href="https://www.abs.gov.au/census/guide-census-data/census-dictionary/2021/variables-topic/disability-and-carers/core-activity-need-assistance-assnp">core
+activity need for assistance</a> was available for the full data
+series.</p>
+<p>2021 <a href="https://www.abs.gov.au/statistics/statistical-geography/australian-statistical-geography-standard-asgs">Australian
+Statistical Geography Standard (ASGS)</a> areas were used for all
+boundaries, visualised at the <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/main-structure-and-greater-capital-city-statistical-areas">Statisical
+Area 2 (SA2)</a> level. That is, while historical data is visualised for
+2011 and 2016, these have been populated according to the updated 2021
+ASGS boundaries in the time series tables.</p>
+</div>
+<div id="included-variables" class="section level3">
+<h3>Included variables</h3>
+<p>The variables chosen for estimation were those included in the time
+series tables provided by the ABS, which have historically been of
+interest to the Sydney Local Health District. This is not exhaustive,
+and there are many additional variables included in the time series
+tables (and, indeed, the entire Census questionnaire), but it was
+decided to focus on a smaller set of variables in the interest of
+usability and relevance. These included</p>
+<ul>
+<li><a href="https://www.abs.gov.au/statistics/people/population/population-census/latest-release">Usual
+resident population</a>, reflecting the count on Census night by area of
+usual residence</li>
+<li>Proportion born overseas, calculated using the <a href="https://www.abs.gov.au/census/guide-census-data/census-dictionary/2021/variables-topic/cultural-diversity/country-birth-person-bplp">Country
+of Birth</a> census variable, as well as
+<ul>
+<li>Proportion born in the 11 most common countries of birth within SLHD
+(including Australia)</li>
+</ul></li>
+<li>Proportion of people primarily speaking a language other than
+English at home, calculated using the <a href="https://www.abs.gov.au/census/guide-census-data/census-dictionary/2021/variables-topic/cultural-diversity/language-used-home-lanp">Language
+used at Home</a> census variable, as well as
+<ul>
+<li>Proportion speaking the 11 most common languages within SLHD
+(including those speaking English only)</li>
+</ul></li>
+<li>Median personal income, calculated using the <a href="https://www.abs.gov.au/census/guide-census-data/census-dictionary/2021/variables-topic/income-and-work/total-household-income-weekly-hind">household
+income</a> census variable</li>
+</ul>
+</div>
+<div id="method" class="section level3">
+<h3>Method</h3>
+<p>In the case of usual resident populations and median personal income,
+both variables were pre-calculated by the ABS, and so were used as is.
+For both proportion variables, total valid responses were used as the
+denominators, with any missing or invalid responses excluded from the
+total. For example, proportion born overseas is the number of people who
+listed a country of birth other than Australia, divided by the number of
+people people who listed <em>any</em> country of birth, with those with
+missing or invalid responses excluded. In this way, the proportion of
+people born overseas is the complement to those born in Australia (i.e.,
+the two proportions sum to 100% for each area), and the proportion of
+those speaking English only as the main language at home is the
+complement to those speaking a language other than English at home.</p>
+<p>Note that only SA2s for with sufficient population for valid
+estimation were included. This meant excluding the bottom 5% of SA2s by
+total population for each year, which included mostly non-residential
+SA2s, such as ‘Sydney Airport’ or ‘Rookwood Cemetery’.</p>
+</div>
+<div id="limitations" class="section level3">
+<h3>Limitations</h3>
+<p>Usual resident populations are known to <a href="https://www.abs.gov.au/statistics/people/population/2021-census-overcount-and-undercount/latest-release">undercount
+certain population</a> groups, and thus the population estimates used
+are subject to some bias. While this may be small overall, it is likely
+to be especially pronounced in areas with higher populations of
+demographic groups known to be undercounted. This should be considered
+when interpreting estimates.</p>
+<p>Income data reported in the census are self-reported, with no
+validation or cross reference to taxation and/or administrative data.
+There is the possibility that this estimate may be biased and there has
+been no correction for this. Though this bias is likely to be relatively
+small when aggregated, and especially when only reporting medians, it
+should be considered when interpreting estimates.</p>
+<p>The exclusion of invalid responses from the denominators in the
+proportions of those born overseas and those speaking a language other
+than English at home may bias estimates slightly. That is, those born
+overseas are slightly more likely to be <a href="https://www.abs.gov.au/statistics/people/population/2021-census-overcount-and-undercount/latest-release">undercounted</a>,
+and this is likely to affect overall estimates. Estimates produced here
+should thus be taken as <em>indicative</em> of population distributions,
+rather than objective truth.</p>
+</div>
+</div>
