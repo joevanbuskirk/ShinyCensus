@@ -9,26 +9,6 @@ library(plotly)
 library(DT)
 
 
-## To Do 20/03/2024
-# - For each metadata - make methods bullet points - split up for readability
-# - For CALD - add in a statement about limitations of any one variable capturing CALD (similar to SEIFA)
-# - Included variables, expand on this section for each of the them
-#   - First, from the range of variables available in the Census, these variables
-#     are of greatest relevance to clinical and non-clinical services within the district 
-#   - Knowledge of the breadth of economic and cultural and linguistic diversity,  
-#     health needs, and ages across the district is important to the 
-#     equitable delivery of health services 
-#   - Presenting this data at a small area reveals local patterns across these 
-#     indicators that may not be apparent when summarised at a larger area
-#   - Second, precedent in published Census summaries from PHO
-#   - Third and thirdmost, availability
-# - For languages and countries of birth, explain the ordering (top 10)
-# - Start each metadata (Data Source and Methods) with the same boilerplate as above 
-#   - change tab title notes/Read me
-#   - dynamic text will be below this, specific to the type of data
-# - Increase size of the LHD labels on the map 
-
-
 ## For testing only
 source('Functions.R')
 
@@ -165,6 +145,10 @@ Variable_Types <- setNames(c('URP',
                              rep('asr', 11),
                              rep('seifa', 4)))
 
+info_types <- setNames(c('num', 'num', 'cald', 'asr', 'seifa'),
+                       unique(names(Variable_Types)))
+
+
 LHD_Cropped_Labels <- cbind(
   sf::st_drop_geometry(LHD_Cropped),
   sf::st_coordinates(sf::st_centroid(LHD_Cropped)))
@@ -227,7 +211,7 @@ body <- dashboardBody(
                              DTOutput("datatable"))))
         )
       ),
-      tabPanel('Data source and methods',
+      tabPanel('Metadata',
                box(width = 700,
                    (div(style='height:700px;overflow-y: scroll;',
                         htmlOutput('markdown', height = 700))))
@@ -260,6 +244,9 @@ sidebar <- dashboardSidebar(
 )
 
 
+# input <- data.frame(Type = AllVars[1],
+#                     Sex = SexLookup[3],
+#                     Year = '2021')
 # input <- data.frame(Type = AllVars[18],
 #                     Sex = SexLookup[1],
 #                     Year = '2011')
@@ -315,22 +302,45 @@ server <- function(input, output, session) {
       addMapPane("SLHD", zIndex = 420) %>%
       addPolygons(data = LHD_Cropped,
                   group = 'Base',
-                  weight = 3,
+                  weight = 2,
                   options = pathOptions(pane = "SLHD"),
-                  color = 'black',
-                  fill = NA) %>%
-      addLabelOnlyMarkers(data = LHD_Cropped_Labels,
-                          lng = ~X,
-                          lat = ~Y,
-                          label = ~paste(Name, "LHD"),
-                          options = pathOptions(pane = "SLHD"),
-                          labelOptions = labelOptions(noHide = TRUE,
-                                                      textsize = 10, 
-                                                      direction = 'top',
-                                                      textOnly = TRUE))
+                  color = 'rgba(0, 0, 0, 0.5)',
+                  fill = NA) 
   })
   # 
   
+  observeEvent(
+    eventExpr = input$map_zoom, {
+      # print(input$map_zoom)
+      leafletProxy(
+        mapId = "map", 
+        session = session
+      ) %>% 
+        clearMarkers() %>%
+        addLabelOnlyMarkers(
+          data = LHD_Cropped_Labels,
+          lng = ~X,
+          lat = ~Y,
+          label = ~paste(Name, "LHD"),
+          options = pathOptions(pane = "SLHD"),
+          labelOptions = labelOptions(
+            noHide = TRUE,
+            direction = 'top',
+            textOnly = TRUE,
+            style = list(
+              'color' = 'black',
+              'font-size' = paste0(input$map_zoom/2 + 10, 
+                                   'px'),
+              'font-weight' = 'bolder',
+              'font-family' = '"Gill Sans Extrabold", sans-serif'
+              # 'text-shadow' = '0px 0px white' 
+              # '-webkit-text-stroke-width' = '1px',
+              # '-webkit-text-stroke-color' = 'rgba(0, 38, 100, 1)'
+              )))    
+    }
+  )
+  
+
   ## Observe the events on the sidebar to update content
   observe({
     Input_Type <- names(AllVars[AllVars == input$Type])
@@ -416,8 +426,10 @@ server <- function(input, output, session) {
                                         after = 0L)
     
     ### Choose variable type for the markdown info
-    info_type <- ifelse(vartype %in% c('num', 'money', 'pct'),
-                        'num', vartype)
+    # info_type <- ifelse(vartype %in% c('num', 'money', 'pct'),
+    #                     'num', vartype)
+    
+    info_type <- info_types[vartype] 
     
     output$markdown <- renderUI({
       includeHTML(paste0(info_type, '.html'))
@@ -654,13 +666,16 @@ server <- function(input, output, session) {
                                                          labels = SexLookup),
                                            SEXP = forcats::fct_rev(SEXP)),
                              aes(y = Value,
-                                 x = LHD,
+                                 x = Name,
                                  fill = SEXP,
-                                 text = paste(
-                                   'Name:', Name,
+                                 text = paste0(
+                                   'Name:', LHD,
                                    "<br>Sex:", SEXP,
-                                   "<br>Count:", scales::comma(Value, 
-                                                               accuracy = 1)))) +
+                                   ifelse(grepl('Age', input$Type), 
+                                          "<br>Median Age:", 
+                                          "<br>Count:"),
+                                   scales::comma(Value, 
+                                                 accuracy = 1)))) +
             scale_y_continuous(stringr::str_wrap(paste(
               input$Type,
               ifelse(grepl('Age', input$Type), "(Years)", "(N)")), 
@@ -680,11 +695,11 @@ server <- function(input, output, session) {
                                  text = paste(
                                    'Name:', Name,
                                    "<br>Sex:", SEXP,
-                                   "<br>Count:", scales::comma(Value, 
-                                                               accuracy = 1)))) +
-            scale_y_continuous(stringr::str_wrap(paste(input$Type, "($)"), 
+                                   "<br>Weekly income:", scales::dollar(Value, 
+                                                                accuracy = 1)))) +
+            scale_y_continuous(stringr::str_wrap(input$Type, 
                                                  width = 20),
-                               labels = scales::comma) 
+                               labels = scales::dollar) 
         }
         else if(vartype == 'seifa')
         {
@@ -720,10 +735,9 @@ server <- function(input, output, session) {
                                            hjust = 1),
                 text = element_text(size = textsize))
         
-        plotly::ggplotly(baseplot, 
+        plotly::ggplotly(p = baseplot, 
                          tooltip = c('text'))  
       })
-    
     
     ##### Render the Leaflet
     if(vartype == 'asr'){
