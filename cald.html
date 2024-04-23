@@ -1,0 +1,94 @@
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The Australian Bureau of Statistics (ABS) Census of Population and
+Housing (the Census) provides summaries by area across many key
+demographic variables. However, areas enumerated in the Census are
+defined by the ABS and</p>
+<ul>
+<li>Are adjusted from year to year, precluding simple longitudinal
+assessment; and</li>
+<li>Are not defined at non-ABS area boundaries, such as Local Health
+District</li>
+</ul>
+<p>With the 2021 Census, the ABS has released specific time series
+Census datasets to allow for longitudinal comparisons in Census
+variables across consistent geographic boundaries. This allows for
+direct and valid comparisons to be made across Census variables for a
+given area over time, without need for conversion or aggregation.</p>
+<p>The Public Health Research Analytics and Methods for Evidence unit
+(PHRAME) has launched an online platform for the visualisation of this
+time series Census data from 2011, 2016 and 2021, covering three broad
+topics -</p>
+<ul>
+<li>Demographic Variables, such as population size, income and age</li>
+<li>Broad indicators of Cultural and Linguistic Diversity, such as
+language spoken at home and country of birth</li>
+<li>ABS indexes of socioeconomic status</li>
+<li>Self-reported long-term health conditions, included in 2021 for the
+first time</li>
+</ul>
+<p>Specific variables were selected using a combination of relevance to
+clinical and non-clinical services within SLHD and those that have been
+reported in previous Census summaries, among those that were available
+across time. All variables with the exception of the newly included
+self-reported long-term health conditions are reported across the three
+most recent censuses (specifically 2011, 2016 and 2021).</p>
+</div>
+<div id="method---cultural-and-linguistic-diversity" class="section level2">
+<h2>Method - Cultural and Linguistic Diversity</h2>
+<div id="data-sources" class="section level3">
+<h3>Data Sources</h3>
+<p>All data was sourced from the Australian Bureau of Statistics (ABS)
+<a href="https://www.abs.gov.au/census">Census of Population of
+Housing</a> <a href="https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/data-api-user-guide">Application
+Programming Interface (API)</a>. Specifically, both country of birth of
+person (<a href="https://www.abs.gov.au/census/guide-census-data/census-dictionary/2021/variables-topic/cultural-diversity/country-birth-person-bplp">BPLP</a>)
+and language used at home (<a href="https://www.abs.gov.au/census/guide-census-data/census-dictionary/2021/variables-topic/cultural-diversity/language-used-home-lanp">LANP</a>)
+were used for the full data series.</p>
+<p>The top 10 countries of birth (excluding Australia), and top 10
+languages other than English spoken at home, were calculated by
+population within the Sydney Local Health District. These specific
+countries and languages are visualised separately at the SA2 level.</p>
+</div>
+<div id="statistical-method" class="section level3">
+<h3>Statistical method</h3>
+<p>For proportions, numerators were calculated as the total population
+within that subcategory, while the denominator was the total population
+with a valid response. In this way, all estimates have a <em>meaningful
+complement</em>. For example, if 42% of a population in an SA2 are born
+overseas, it can be assumed that 58% of that area were born in
+Australia. That is, the proportions will sum to 100%. Similarly, if 12%
+of the population in an area were to speak Spanish as a preferred
+language at home, it can be assumed that 88% of that population <em>do
+not</em> speak Spanish at home.</p>
+<p>Only SA2s for with sufficient population for valid estimation were
+included. This meant excluding the bottom 5% of SA2s by total population
+for each year, which included mostly non-residential SA2s, such as
+‘Sydney Airport’ or ‘Rookwood Cemetery’.</p>
+</div>
+</div>
+<div id="limitations" class="section level2">
+<h2>Limitations</h2>
+<p>All data reported in the census are self-reported, with no validation
+or cross reference to registry and/or administrative data. The validity
+of self-reported estimates of Cultural and Linguistic Diversity may be
+subject to bias, if certain populations are less likely to answer these
+questions. As only valid responses were used in the denominator, results
+would be biased if certain population were less likely to be included in
+the total (i.e. total <em>valid</em> responses). This should be
+considered when interpreting the results.</p>
+<p>More broadly, Census counts are known to undercount certain
+populations (e.g. <a href="https://www.abs.gov.au/statistics/detailed-methodology-information/information-papers/methodology-used-final-rebased-population-estimates-june-2021">Estimated
+Resident Populations</a>), and there are no suitably corrected estimates
+available for the included CALD variables. This is unlikely to introduce
+substantial bias to the estimates, unless counting particular
+populations known be undercounted.</p>
+<p>Finally, CALD is a complex and multifaceted concept, capturing
+diversity across myriad aspects, including culture, community, religion
+and many more. The variables available in the Census give a very broad
+overview of this diversity, with full acknowledgement that many
+important aspects are not covered.</p>
+</div>
