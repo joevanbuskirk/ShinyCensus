@@ -666,7 +666,7 @@ server <- function(input, output, session) {
                                                          labels = SexLookup),
                                            SEXP = forcats::fct_rev(SEXP)),
                              aes(y = Value,
-                                 x = Name,
+                                 x = LHD,
                                  fill = SEXP,
                                  text = paste0(
                                    'Name:', LHD,
