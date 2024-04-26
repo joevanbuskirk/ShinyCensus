@@ -211,6 +211,15 @@ body <- dashboardBody(
                              DTOutput("datatable"))))
         )
       ),
+      tabPanel('Instructions',
+               fluidRow(
+                 column(3, 
+                        box(
+                          width = NULL, 
+                          # title = "Instructions for using the platform", 
+                          HTML('<iframe width="1000" height="600" src="https://www.youtube.com/embed/4LXR21rCs74" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+                        )))
+      ),
       tabPanel('Metadata',
                box(width = 700,
                    (div(style='height:700px;overflow-y: scroll;',
