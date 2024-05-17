@@ -174,7 +174,7 @@ SA2_Tables <- purrr::imap(
   })
 
 
-header <- dashboardHeader(title = "Census Local Health District Visualisation - PHRAME", 
+header <- dashboardHeader(title = "PHRAME - Sydney Local Health District census summary", 
                           titleWidth = '1000')
 
 body <- dashboardBody(
@@ -224,6 +224,10 @@ body <- dashboardBody(
                box(width = 700,
                    (div(style='height:700px;overflow-y: scroll;',
                         htmlOutput('markdown', height = 700))))
+      ),
+      tabPanel('About Us',
+               box(width = 700,
+                   includeHTML('feedback.html'))
       )
     ),
   )
