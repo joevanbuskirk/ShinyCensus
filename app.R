@@ -248,7 +248,7 @@ sidebar <- dashboardSidebar(
                          label =  h4("Census year"),
                          choices = '2021'),
              selectInput(inputId = "Sex",
-                         label =  h4("Gender"),
+                         label =  h4("Sex"),
                          choices = 'Persons'), 
              uiOutput("COB"),
              uiOutput("Lang")
@@ -570,7 +570,7 @@ server <- function(input, output, session) {
           tr(
             th(rowspan = 2, 'SA2 Name'),
             th(rowspan = 2, 'Local Health District'),
-            th(colspan = length(SexChoices), 'Gender'),
+            th(colspan = length(SexChoices), 'Sex'),
           ),
           tr(
             lapply(SexChoices, th)
@@ -768,7 +768,7 @@ server <- function(input, output, session) {
                     label = ~lapply(glue::glue(
                       .sep = "<br/>",
                       "<b>{sa2_name}</b>",
-                      "Gender: {input$Sex}",
+                      "Sex: {input$Sex}",
                       "{Input_Legend}: {ifelse(is.na(Value), 'Insufficient data', Value_Label)}"),
                       htmltools::HTML)) %>%
         addLegend(title = stringr::str_wrap(gsub("(\\(.*)|( with core.*)", "", 
@@ -794,7 +794,7 @@ server <- function(input, output, session) {
                     label = ~lapply(glue::glue(
                       .sep = "<br/>",
                       "<b>{sa2_name}</b>",
-                      "Gender: {input$Sex}",
+                      "Sex: {input$Sex}",
                       "{Input_Legend}: {ifelse(is.na(Value), 'Insufficient data', scales::percent(Value, a = 0.1))}"),
                       htmltools::HTML)) %>%
         addLegend(title = stringr::str_wrap(paste(Input_Legend, "(%)"),
@@ -820,7 +820,7 @@ server <- function(input, output, session) {
                     label = ~lapply(glue::glue(
                       .sep = "<br/>",
                       "<b>{sa2_name}</b>",
-                      "Gender: {input$Sex}",
+                      "Sex: {input$Sex}",
                       "{Input_Legend}: {ifelse(is.na(Value), 'Insufficient data', scales::comma(Value))}"),
                       htmltools::HTML)) %>%
         addLegend(title = stringr::str_wrap(Input_Legend,
@@ -846,7 +846,7 @@ server <- function(input, output, session) {
                     label = ~lapply(glue::glue(
                       .sep = "<br/>",
                       "<b>{sa2_name}</b>",
-                      "Gender: {input$Sex}",
+                      "Sex: {input$Sex}",
                       "{Input_Legend}: {ifelse(is.na(Value), 'Insufficient data', scales::dollar(Value))}"),
                       htmltools::HTML)) %>%
         addLegend(title = stringr::str_wrap(paste(Input_Legend, "($)"),
